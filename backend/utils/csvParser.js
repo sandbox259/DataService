@@ -1,5 +1,5 @@
 const fs = require('fs');
-const parse = require('csv-parse');
+const  { parse } = require('csv-parse');
 
 const parseCSV = (filePath) => {
   return new Promise((resolve, reject) => {
