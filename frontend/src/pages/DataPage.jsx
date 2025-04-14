@@ -1,9 +1,14 @@
 import React, { useState } from 'react';
 import styles from '../styles/DataPage.module.css';
 import { uploadFile } from '../services/uploadService';
+import QueryBuilder from '../components/QueryBuilder';
+import DataTable from '../components/DataTable';
 
 function DataPage() {
   const [file, setFile] = useState(null);
+  const [columns, setColumns] = useState([]);
+  const [data, setData] = useState([]);
+  const [filteredData, setFilteredData] = useState([]);
   const [queryUIVisible, setQueryUIVisible] = useState(false);
 
   const handleFileChange = (e) => {
@@ -16,10 +21,39 @@ function DataPage() {
     try {
       const response = await uploadFile(file);
       console.log('File uploaded successfully', response);
+      setColumns(response.columns);
+      setData(response.data);
+      setFilteredData(response.data);
       setQueryUIVisible(true);
     } catch (error) {
       console.error('Upload failed', error);
     }
+  };
+
+  const applyFilters = (filters) => {
+    let filtered = [...data];
+    filters.forEach(({ column, operator, value }) => {
+      if (!column) return;
+      filtered = filtered.filter((row) => {
+        const cell = row[column]?.toString().toLowerCase();
+        const comp = value.toLowerCase();
+        switch (operator) {
+          case '=':
+            return cell === comp;
+          case '!=':
+            return cell !== comp;
+          case '>':
+            return parseFloat(cell) > parseFloat(comp);
+          case '<':
+            return parseFloat(cell) < parseFloat(comp);
+          case 'contains':
+            return cell.includes(comp);
+          default:
+            return true;
+        }
+      });
+    });
+    setFilteredData(filtered);
   };
 
   return (
@@ -35,7 +69,8 @@ function DataPage() {
       {queryUIVisible && (
         <div className={styles.section}>
           <h3>Step 2: Query the Data</h3>
-          <p>(Coming next: filter builder, preview table)</p>
+          <QueryBuilder columns={columns} onApply={applyFilters} />
+          <DataTable data={filteredData} />
         </div>
       )}
     </div>
