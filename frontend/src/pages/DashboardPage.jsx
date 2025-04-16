@@ -37,8 +37,8 @@ function DashboardPage() {
     switch (chartType) {
       case 'Bar':
         return (
-          <ResponsiveContainer {...commonProps}>
-            <BarChart data={filteredData}>
+          <ResponsiveContainer {...commonProps} width="100%" height={400}>
+            <BarChart data={filteredData} margin={{ top: 20, right: 30, left: 20, bottom: 5 }}>
               <CartesianGrid strokeDasharray="3 3" />
               <XAxis dataKey={xAxisKey} />
               <YAxis />
@@ -50,8 +50,8 @@ function DashboardPage() {
         );
       case 'Line':
         return (
-          <ResponsiveContainer {...commonProps}>
-            <LineChart data={filteredData}>
+          <ResponsiveContainer {...commonProps} width="100%" height={400}>
+            <LineChart data={filteredData} margin={{ top: 20, right: 30, left: 20, bottom: 5 }}>
               <CartesianGrid strokeDasharray="3 3" />
               <XAxis dataKey={xAxisKey} />
               <YAxis />
