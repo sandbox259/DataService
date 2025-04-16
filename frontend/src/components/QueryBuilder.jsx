@@ -1,8 +1,12 @@
 import React, { useState } from 'react';
 import styles from '../styles/QueryBuilder.module.css';
+import { useDataContext } from '../context/DataContext';
 
 function QueryBuilder({ columns, onApply }) {
-  const [filters, setFilters] = useState([{ column: '', operator: '=', value: '' }]);
+
+    const {
+        filters, setFilters,
+      } = useDataContext();
 
   const handleChange = (index, key, value) => {
     const updated = [...filters];

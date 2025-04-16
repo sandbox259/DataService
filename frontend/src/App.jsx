@@ -8,13 +8,14 @@ import Navbar from './components/Navbar';
 function App() {
   return (
     <DataProvider>
+      <Router>
       <Navbar />
         <Routes>
           <Route path="/" element={<DataPage/>} />
-          <Route path="/dashboard/:fileId" element={<DashboardPage />} />
+          <Route path="/dashboard" element={<DashboardPage />} />
         </Routes>
+        </Router>
     </DataProvider>
-  
   );
 }
 

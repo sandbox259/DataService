@@ -15,7 +15,7 @@ function DataPage() {
   const {
     file, setFile,
     columns, setColumns,
-    data, setData,
+    data, setData, 
     filteredData, setFilteredData,
     queryUIVisible, setQueryUIVisible
   } = useDataContext();
