@@ -3,13 +3,22 @@ import styles from '../styles/DataPage.module.css';
 import { uploadFile } from '../services/uploadService';
 import QueryBuilder from '../components/QueryBuilder';
 import DataTable from '../components/DataTable';
+import { useDataContext } from '../context/DataContext';
 
 function DataPage() {
-  const [file, setFile] = useState(null);
+  /*const [file, setFile] = useState(null);
   const [columns, setColumns] = useState([]);
   const [data, setData] = useState([]);
   const [filteredData, setFilteredData] = useState([]);
-  const [queryUIVisible, setQueryUIVisible] = useState(false);
+  const [queryUIVisible, setQueryUIVisible] = useState(false); */
+
+  const {
+    file, setFile,
+    columns, setColumns,
+    data, setData,
+    filteredData, setFilteredData,
+    queryUIVisible, setQueryUIVisible
+  } = useDataContext();
 
   const handleFileChange = (e) => {
     setFile(e.target.files[0]);
