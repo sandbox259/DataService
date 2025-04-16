@@ -1,14 +1,20 @@
 import React from 'react';
-import { Routes, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import DataPage from './pages/DataPage';
 import DashboardPage from './pages/DashboardPage';
+import { DataProvider } from './context/DataContext';
+import Navbar from './components/Navbar';
 
 function App() {
   return (
-    <Routes>
-      <Route path="/" element={<DataPage/>} />
-      <Route path="/dashboard/:fileId" element={<DashboardPage />} />
-    </Routes>
+    <DataProvider>
+      <Navbar />
+        <Routes>
+          <Route path="/" element={<DataPage/>} />
+          <Route path="/dashboard/:fileId" element={<DashboardPage />} />
+        </Routes>
+    </DataProvider>
+  
   );
 }
 
